@@ -1,5 +1,5 @@
 def main():
-    print("Hello from workflow-testing!")
+    print("Hello from workflow-testing hi!")
 
 
 if __name__ == "__main__":
