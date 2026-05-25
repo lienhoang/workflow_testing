@@ -4,6 +4,12 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      branch-name:
+        type: string
+        description: "Set the branch name to run on"
+        required: true
 
 jobs:
   check-version:
