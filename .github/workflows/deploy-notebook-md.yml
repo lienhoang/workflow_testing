@@ -24,8 +24,8 @@ jobs:
         run: mkdir -p public
 
       - name: Copy Markdown output to build directory
-        # Assumes your notebook saved 'output.md' in the root directory
-        run: cp output.md public/index.md
+        # Assumes your notebook saved 'output.md' in the notebooks directory
+        run: cp notebooks/output.md public/index.md
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
