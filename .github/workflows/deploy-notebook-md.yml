@@ -1,0 +1,44 @@
+name: Deploy Notebook Markdown to Pages
+
+on:
+  push:
+    branches: [main]  # Trigger on push to main branch
+  workflow_dispatch:  # Allows manual triggers from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Create destination directory
+        run: mkdir -p public
+
+      - name: Copy Markdown output to build directory
+        # Assumes your notebook saved 'output.md' in the root directory
+        run: cp output.md public/index.md
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
